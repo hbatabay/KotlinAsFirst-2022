@@ -4,6 +4,7 @@ package lesson2.task1
 
 import lesson1.task1.discriminant
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sqrt
 
 // Урок 2: ветвления (здесь), логический тип (см. 2.2).
@@ -92,11 +93,20 @@ fun timeForHalfWay(
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-fun whichRookThreatens(
+/*fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int = TODO()
+): Int = TODO()*/
+
+fun whichRookThreatens(kingX: Int, kingY: Int,rookX1: Int, rookY1: Int,rookX2: Int, rookY2: Int): Int {
+    val rook1: Boolean = kingX == rookX1 || kingY == rookY1
+    val rook2: Boolean = kingX == rookX2 || kingY == rookY2
+    if (!rook1 && !rook2) return 0
+    else if (rook1 && rook2) return 3
+    else if (rook1) return 1
+    return 2
+}
 
 /**
  * Простая (2 балла)
@@ -108,11 +118,18 @@ fun whichRookThreatens(
  * и 3, если угроза есть и от ладьи и от слона.
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
-fun rookOrBishopThreatens(
-    kingX: Int, kingY: Int,
-    rookX: Int, rookY: Int,
-    bishopX: Int, bishopY: Int
-): Int = TODO()
+fun rookOrBishopThreatens(kingX: Int, kingY: Int, rookX: Int, rookY: Int, bishopX: Int, bishopY: Int): Int {
+    if ((kingX==rookX || kingY==rookY)&&
+        (Math.abs(kingX-bishopX)==Math.abs(kingY-bishopY)))
+        return 3
+    else if ((kingX==rookX || kingY==rookY)&&
+        (Math.abs(kingX-bishopX)!=Math.abs(kingY-bishopY)))
+        return 1
+    else if (Math.abs(kingX-bishopX)==Math.abs(kingY-bishopY)&&
+        (kingX!=rookX&&kingY!=rookY))
+        return 2
+    else return 0
+}
 
 /**
  * Простая (2 балла)
@@ -122,7 +139,17 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val maxS = max(max(a, b), c)
+    val minS = min(min(a, b), c)
+    val otherS = (a + b + c) - (minS + maxS)
+    return when {
+        maxS > (minS + otherS) -> -1
+        maxS== sqrt((minS * minS + otherS * otherS)) -> 1
+        maxS < sqrt((minS * minS + otherS * otherS)) -> 0
+        else -> 2
+    }
+}
 
 /**
  * Средняя (3 балла)

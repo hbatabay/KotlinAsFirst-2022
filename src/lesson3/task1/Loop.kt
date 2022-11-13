@@ -80,7 +80,18 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int {
+    if (n in 1..2) return 1
+    var fib1: Int = 1
+    var fib2: Int = 1
+    var fin3: Int = 0
+    for (i in 3..n){
+        fin3 = fib2 + fib1
+        fib1 = fib2
+        fib2 = fin3
+    }
+    return fin3
+}
 
 /**
  * Простая (2 балла)
@@ -120,7 +131,14 @@ fun collatzSteps(x: Int): Int = TODO()
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var k = Math.max(n, m)
+    while (k in 1..n * m) {
+        if (k % n != 0 || k % m != 0) k += 1
+        else return k
+    }
+    return k
+}
 
 /**
  * Средняя (3 балла)
@@ -129,7 +147,14 @@ fun lcm(m: Int, n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var k = 1
+    for (i in 2..m) {
+        if (m % i == 0 && n % i == 0)
+            k = 0
+    }
+    return k != 0
+}
 
 /**
  * Средняя (3 балла)
@@ -149,7 +174,15 @@ fun revert(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean {
+    var a = 0
+    var m = n
+    while (m > 0) {
+        a = a * 10 + m % 10
+        m /= 10
+    }
+    if (a == n) return true else return false
+}
 
 /**
  * Средняя (3 балла)
@@ -170,7 +203,18 @@ fun hasDifferentDigits(n: Int): Boolean = TODO()
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var n = 0
+    var sin = x
+    var part = Double.POSITIVE_INFINITY
+    while (Math.abs(part) * 1000 > Math.abs(eps)) {
+        n++
+        part = Math.pow(x, n * 2.0 + 1) / factorial(n * 2 + 1)
+        if (n % 2 == 0) sin += part
+        else sin -= part
+    }
+    return sin
+}
 
 /**
  * Средняя (4 балла)
@@ -203,4 +247,12 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var i = 0
+    var nn = n
+    while (nn > 0) {
+        nn = nn / 10
+        i++
+    }
+    return i
+}
