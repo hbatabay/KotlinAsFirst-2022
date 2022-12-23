@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.sqr
 import kotlin.math.sqrt
 
 // Урок 4: списки
@@ -120,7 +121,13 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var number = 0.0
+    for (i in 0..v.size - 1) {
+        number += sqr(v[i].toString().toDouble())
+    }
+    return sqrt(number)
+}
 
 /**
  * Простая (2 балла)
